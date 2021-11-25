@@ -3,6 +3,11 @@
 The evaluation tools contain useful tools for evaluating the performance of inference. As the scripts were usually not written from scratch, but copied 
 and modified from other sources, the licence information of the other sources is kept within the script.
 
+## Samples
+For each of the tools in this folder, there are samples available in ./samples for both windows and linux. The intention is to 
+use these samples as a base in the generation of hardware modules for specific hardware devices. Copy the samples to your target 
+folder and modify them there.
+
 ## Tools
 For the tool scripts, the following constants are defined. 
 ```
@@ -22,11 +27,12 @@ call conda activate %PYTHONENV%
 ```
 
 ### Visualize Bounding Boxes with TensorFlow 2
-File: obj_visualize_compare_bbox.py
+File: vis_compare_bbox.py
 Usage: Select two or three images with their bounding boxes in PASCAL VOC XML format and visualize then within one image.
 Example as Windows batch script: 
 ```
-python obj_visualize_compare_bbox.py --labelmap="samples/annotations/label_map.pbtxt" ^
+python vis_compare_bbox.py ^
+--labelmap="samples/annotations/label_map.pbtxt" ^
 --output_dir="samples/results" ^
 --image_path1="samples/images/0.jpg" --annotation_dir1="samples/annotations/xml" --title1="Image 1" ^
 --image_path2="samples/images/10.jpg" --annotation_dir2="samples/annotations/xml" --title2="Image 2" ^
@@ -37,16 +43,16 @@ python obj_visualize_compare_bbox.py --labelmap="samples/annotations/label_map.p
 Result for comparing three different images.
 
 <div align="center">
-  <img src="./samples/results/bbox_0_10_20.jpg">
+  <img src="./_img/bbox_PETS09_S1L1_t1359_view001.jpg">
 </div>
 
 ### Visualize Bounding Boxes with OpenCV
-File: visualize_object_detection_images_opencv.py
+File: vis_object_detection_images_opencv.py
 Usage: Select two images with their bounding boxes in PASCAL VOC XML format and visualize then within one image.
 It uses OpenCV for the visualization of the bounding boxes.
 Example as Windows batch script: 
 ```
-python visualize_object_detection_images_opencv.py ^
+python vis_object_detection_images_opencv.py ^
 --image_path1="samples/images/0.jpg" --annotation_dir1="samples/annotations/xml" ^
 --image_path2="samples/images/30.jpg" --annotation_dir2="samples/annotations/xml" ^
 --output_dir="samples/results" ^
@@ -97,7 +103,7 @@ python %SCRIPTPREFIX%\inference_evaluation\tf2oda_inference_from_saved_model.py 
 ### Calculate Coco Metrics for Object Detection
 Coco metrics decoupled from Tensorboard to perform evaluation on networks.
 
-File: objdet_pycoco_evaluation.py
+File: eval_pycocotools.py
 
 Usage: Create a ground truth file in Coco JSON format. Perform detections with a model and convert the detections into Coco JSON detection format. 
 The result is saved or appended to the output file --output_file for further processing and visualization. To be able to sort the measurements, provide model_name 
@@ -108,7 +114,7 @@ it lowers the metric scores.
 
 Example as Windows batch script: 
 ```
-python %SCRIPTPREFIX%\inference_evaluation\objdet_pycoco_evaluation.py ^
+python %SCRIPTPREFIX%\inference_evaluation\eval_pycocotools.py ^
 --groundtruth_file="annotations/coco_pets_validation_annotations.json" ^
 --detection_file="results/%MODELNAME%/validation_for_inference/coco_pets_detection_annotations.json" ^
 --output_file="results/performance.csv" ^
@@ -119,18 +125,20 @@ python %SCRIPTPREFIX%\inference_evaluation\objdet_pycoco_evaluation.py ^
 ### Visualize Evaluations from Latency and Performance Collection Files
 Usage: Provide
 
-Script: evaluation_visualization.py
+Script: vis_combined_results.py
 
 Source: 
 
 Example as Windows batch script: 
 ```
-python %SCRIPTPREFIX%\inference_evaluation\evaluation_visualization.py ^
+python %SCRIPTPREFIX%\inference_evaluation\vis_combined_results.py ^
 --latency_file="results/latency.csv" ^
 --performance_file="results/performance.csv" ^
 --output_dir="results"
 ```
 
+## TODO
+Move and refactor image tools and move them to ../visualization to separate them from the inference.
 
 ## Issues
 Should any issues arise during the completion of the guide or any errors noted, please let us know by filing an issue and help us keep up the quality.

@@ -7,6 +7,11 @@ documentation.
 ## Pre-requisites
 Tensorflow object detection api 2.4 is necessary
 
+## Samples
+For each of the tools in this folder, there are samples available in ./samples for both windows and linux. The intention is to 
+use these samples as a base in the generation of hardware modules for specific hardware devices. Copy the samples to your target 
+folder and modify them there.
+
 ## VOC to Coco
 Source: [https://github.com/yukkyo/voc2coco](https://github.com/yukkyo/voc2coco)
 

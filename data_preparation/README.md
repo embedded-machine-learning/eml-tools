@@ -6,6 +6,11 @@ For each python script, there is a batch or sh script to demonstrate how it work
 ## Pre-requisites
 TBD
 
+## Samples
+For each of the tools in this folder, there are samples available in ./samples for both windows and linux. The intention is to 
+use these samples as a base in the generation of hardware modules for specific hardware devices. Copy the samples to your target 
+folder and modify them there.
+
 ## Script Setup
 In several scripts, there is a part for setting the constants and setting up the environment. 
 

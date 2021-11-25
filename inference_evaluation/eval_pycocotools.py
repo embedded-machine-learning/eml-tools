@@ -42,7 +42,7 @@ import pandas as pd
 import numpy as np
 
 # Own modules
-import inference_utils as inf
+import utils.inference_utils as inf
 
 __author__ = 'Alexander Wendt'
 __copyright__ = 'Copyright 2021, Christian Doppler Laboratory for ' \

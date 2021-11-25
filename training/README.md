@@ -9,6 +9,11 @@ Requirements file: requirements_tf24odapi.txt
 
 Install TF2 Object Detection API: install_tf2odapi.sh
 
+## Samples
+For each of the tools in this folder, there are samples available in ./samples for both windows and linux. The intention is to 
+use these samples as a base in the generation of hardware modules for specific hardware devices.
+
+
 ## Training Files Structure
 The Machine Learning Frameworks offer many possibilites to implement training and inference within a project. Much depends on the experience and habits of the developer. To overcome incompatibilites between frameworks and networks and to easily train multiple networks with the same or similar scripts, we define a certain basic structure for the execution of the training and optimization of networks. The purpose is also to encapsulate the python code, to be able only to use shell scripts for execution without customization.
 
