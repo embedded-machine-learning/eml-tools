@@ -4,7 +4,7 @@ import datetime
 import csv
 from inference_utils import get_info_from_modelname 
 '''
-	using the utils from scripts here:
+	using the inference_utils from scripts here:
 		https://github.com/embedded-machine-learning/scripts-and-guides/blob/main/scripts/inference_evaluation/inference_utils.py
 '''
 

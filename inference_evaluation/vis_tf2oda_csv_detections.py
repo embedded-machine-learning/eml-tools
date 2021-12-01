@@ -63,8 +63,8 @@ from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as viz_utils
 
 # Own modules
-import utils.bbox_utils as bbox
-import utils.image_utils as im
+import inference_utils.bbox_utils as bbox
+import inference_utils.image_utils as im
 from datetime import datetime
 
 __author__ = 'Alexander Wendt'

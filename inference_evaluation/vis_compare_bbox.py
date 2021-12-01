@@ -67,7 +67,7 @@ from object_detection.utils import visualization_utils as viz_utils
 import tkinter
 
 # Own modules
-import utils.bbox_utils as bbox
+import inference_utils.bbox_utils as bbox
 
 __author__ = 'Alexander Wendt'
 __copyright__ = 'Copyright 2020, Christian Doppler Laboratory for ' \

@@ -54,7 +54,7 @@ from tensorflow.keras.applications.inception_v3 import preprocess_input, decode_
 from tensorflow.keras.preprocessing import image
 
 # Own modules
-import utils.inference_utils as inf
+import inference_utils.inference_utils as inf
 
 __author__ = 'Alexander Wendt'
 __copyright__ = 'Copyright 2021, Christian Doppler Laboratory for ' \

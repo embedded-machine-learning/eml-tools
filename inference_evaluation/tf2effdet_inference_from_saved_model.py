@@ -46,7 +46,7 @@ import tensorflow as tf
 
 # Own modules
 #import image_utils as im
-import utils.inference_utils as inf
+import inference_utils.inference_utils as inf
 # Include AutoML EfficientDet Inference, not TF2ODA
 import inference
 

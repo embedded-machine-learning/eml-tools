@@ -65,7 +65,7 @@ from matplotlib.offsetbox import AnchoredText
 from adjustText import adjust_text
 
 # Own modules
-import utils.image_utils as im
+import inference_utils.image_utils as im
 
 __author__ = 'Alexander Wendt'
 __copyright__ = 'Copyright 2021, Christian Doppler Laboratory for ' \
