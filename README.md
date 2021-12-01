@@ -10,7 +10,7 @@ we want to find the best combination of a
 - Hardware 
 - Hardware configuration
 
-Secondary, we want to estimate or measure the effect of a particular network on multiple hardware to see where it works well.
+Second, we want to estimate or measure the effect of a particular network on multiple hardware to see where it works well.
 
 ## Overview
 The EML Toolbox provides efficient cross-hardware measurements. 
@@ -39,9 +39,15 @@ makes the process faster
 ## Implementation and Interfaces
 The EML Toolbox is built around uniformity and common interfaces to minimize the need for customization.
 
-### Interface Folder Structure
+### Folder Structure of the Datasets
+We use a uniform folder structure for the datasets that is compatible to the EML projects data structure. By using this structure, we can leave all relative paths in the execution scripts without any changes. 
+Each dataset is put in a dataset root folder on a proper location. 
+
+Folder structure: [link](./template_folders/template_dataset)
+
+
+### Folder Structure for the EML Projects
 We use a uniform folder structure. The advantage is that we can copy prepared scripts into this folder structure and execute without changing anything in the scripts. It reduces the engineering effort of setting up new projects. The folders has the following structure, starting from some base folder, .e.g $HOME:
-- ./datasets				# Folder with datasets
 - ./demonstration_projects	# Projects with complete scripts and data, which are used to test the environments
 	- ./eml_projects/[YOUR DEMO]
 - ./eml_projects 			# Project folder for custom projects)
@@ -136,6 +142,14 @@ The following guides will help the user to setup and execute the EML Toolbox.
 In the following video [Videolink](https://vimeo.com/543560900), the tutorial guides the user on how to setup a standard workspace with a standard example (Oxford Pets) on 
 Tensorflow 2 Object Detection API. First, the folder structure is setup. Then the images are copied. We then prepare the images for training with scripts in the 
 EML toolbox followed by training on the server. Then, we test the model on a local PC and evaluate the results. 
+
+### Datasets for Verifying the Functionlaity
+On Kaggle, we published a dataset that is used to test and debug the EML Tools pipeline. This dataset is a subset of the 
+Oxford Pets dataset (source https://www.robots.ox.ac.uk/~vgg/data/pets/). It contains the two classes cats and dogs. 
+Faulty images have been removed. Annotations for Pascal VOC, Coco, TFRecords and Yolo are included to provide a complete 
+dataset for testing object detection pipelines.
+
+Link: [https://www.kaggle.com/alexanderwendt/oxford-pets-cleaned-for-eml-tools](https://www.kaggle.com/alexanderwendt/oxford-pets-cleaned-for-eml-tools)
 
 ### Setup Folder Structure for Inference
 On a new hardware on Linux, we setup a workspace in the following way. The following instructions were executed on an Intel NUC.
