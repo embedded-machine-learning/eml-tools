@@ -231,5 +231,5 @@ able to be executed without any changes of the start script.
 
 
 <div align="center">
-  <img src="./../_img/eml_logo_and_text.png", width="500">
+  <img src="./_img/eml_logo_and_text.png", width="500">
 </div>
