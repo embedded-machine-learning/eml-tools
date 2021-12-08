@@ -175,6 +175,24 @@ If everything is setup correctly and there are exported models in `./exported-mo
 
 For further details, go to the individual hardware repositories for detailed setup guides and setup scripts. 
 
+### Results
+After successful inference of multiple networks and configurations on one device, you get results in a file that looks like [this](./hardwaremodules/interfaces/combined_results.csv).
+The results consist of model information, measured latencies and evaluation performances like mAP and recall. With this information, visualizations 
+can be created. Below is an example of a mAP/latency graph that compares IntelNUC CPU and GPU for different resolutions of TF2ODA SSD-MobileNetV2.
+
+<div align="center">
+  <img src="./_img/mAP_to_Latency_All_Hardware_scatter.png", width="400">
+</div>
+
+With the results, it is also possible to calculate the gain of a certain network class with a certain hardware model optimization. Below is a figure
+showing the relative latency and mAP of executing SSD-MobileNetV2 with different settings on Tensorflow 2 vs. executing it in OpenVino with FP16 or FP32 quantization.
+
+<div align="center">
+  <img src="./_img/Latency_Delta__for_IntelNUC_GPU_violinplot.png", width="200">
+  <img src="./_img/Relative_Performance_for_IntelNUC_GPU_violinplot.png", width="200">
+</div>
+
+
 ## Requirements for Connected Projects
 The following requirements shall be implemented to be compatible to the EML Tool. If you are new to this topic, it is recommended to follow this process:
 1. Setup the target system exactly as described in a reliable guide with their example networks
