@@ -48,15 +48,16 @@ Folder structure: [link](./template_folders/template_dataset)
 
 ### Folder Structure for the EML Projects
 We use a uniform folder structure. The advantage is that we can copy prepared scripts into this folder structure and execute without changing anything in the scripts. It reduces the engineering effort of setting up new projects. The folders has the following structure, starting from some base folder, .e.g $HOME:
+- ./automl                  # Optional: AutoML EfficientDet repository
 - ./demonstration_projects	# Projects with complete scripts and data, which are used to test the environments
 	- ./eml_projects/[YOUR DEMO]
 - ./eml_projects 			# Project folder for custom projects)
 	- ./eml_projects/[YOUR PROJECT1]
 	- ./eml_projects/[YOUR PROJECT2]
-- ./scripts-and-guides 		# Scripts and guides repository
-- ./scripts-and-guides-samples 		# Scripts and guides repository with sample projects
-- ./models 					# Tensorflow Object Detection API reporsitory, however optional
-- ./protobuf 				# Protobuf as part of the Tensorflow Object Detection API
+- ./eml-tools 		# Scripts base repository
+- ./eml-tools-samples 		# Repository with sample projects for debugging EML Tools
+- ./models 					# Optional: Tensorflow Object Detection API reporsitory, however optional
+- ./protobuf 				# Optional: Protobuf as part of the Tensorflow Object Detection API
 - ./envs					# Python environments (Note 20210719: new, optional interface addition to handle multiple environments)
 	- ./envs/tf24			# Tensorflow 2.4 python virtual environment
 	- ./envs/[YOUR ENVIRONMENT]
@@ -107,13 +108,12 @@ Within the common folder structure, we use an uniform execution of scripts. In t
 and specialized .bat and .sh scripts. The python scripts are used equally on each hardware. The shell scripts are adapted to a certain hardware or application of the python scripts.
 The following types of scripts that form the toolbox core can be found here:
 
-EML Toolbox Scripts: 
+EML Tools Scripts: 
 * [ Converters](./conversion): Data conversion scripts from e.g. VOC->Coco
 * [ Data Processing Tools](./data_preparation): Renaming tools, partitioning of images into train-validation-test sets
-* [ Hardware Modules](./hardwaremodules): Inference scripts for each hardware
-	* [ eda_server](./hardwaremodules/eda_server): Training scripts for the EDA Servers or other servers
+* [ Hardware Modules](./hardwaremodules): Common Inference scripts for each hardware, where the interface scripts often access common packages
 	* [ NVIDIA Trt](./hardwaremodules/nvidia): Specific inference and model conversion scripts for the NVIDIA platform
-	* [ Intel OpenVino](./hardwaremodules/openvino): Specific inference and model conversion scripts for the Intel platform
+	* [ Intel OpenVino](./hardwaremodules/intel): Specific inference and model conversion scripts for the Intel platform
 	* [ Hardware Module Interfaces](./hardwaremodules/interfaces): Interface definitions for the hardware to be able to connect to the EML Toolbox
 * [ Inference Evaluation Tools](./inference_evaluation): General inference and model evaluation tools, e.g. TF2 inference engine
 * [ Power Measurements](./power_measurements): Power measurement scripts
@@ -121,20 +121,25 @@ EML Toolbox Scripts:
 * [ Visualization](./visualization): Visualization tools adapted to the interfaces for the EML Toolbox
 * [ Template Folder Structure for Tensor Flow](./template_workspace): TF2 Template folder structure
 
+For the implementation on target devices, each hardware module uses its own separate repository. The following hardware module repositories are available (by 2021-12-08):
+* [ AutoML EfficientDet Linux Training Server ](https://github.com/embedded-machine-learning/hwmodule-automl-efficientdet-server)
+* [ AutoML EfficientDet Intel OpenVino Devices ](https://github.com/embedded-machine-learning/hwmodule-automl-efficientdet-openvino)
+* [ Ultralytics YoloV5 Linux Training Server ](https://github.com/embedded-machine-learning/hwmodule-ultralytics-yolov5-server)
+* [ Ultralytics YoloV5 Intel OpenVino Devices ](https://github.com/embedded-machine-learning/hwmodule-ultralytics-yolov5-openvino)
+* [ Ultralytics YoloV5 NVIDIA Devices ](https://github.com/embedded-machine-learning/hwmodule-ultralytics-yolov5-nvidia)
+* [ Ultralytics YoloV3 Linux Training Server ](https://github.com/embedded-machine-learning/hwmodule-ultralytics-yolov3-server)
+* [ Ultralytics YoloV3 Intel OpenVino Devices ](https://github.com/embedded-machine-learning/hwmodule-ultralytics-yolov3-openvino)
+* [ TF2 Object Detection API Linux Training Server ](https://github.com/embedded-machine-learning/hwmodule-tf2oda-server)
+* [ TF2 Object Detection API Intel OpenVino Devices ](https://github.com/embedded-machine-learning/hwmodule-tf2oda-openvino)
+* [ TF2 Object Detection API Vienna Scientific Cluster Training Server (Slurm) ](https://github.com/embedded-machine-learning/hwmodule-tf2oda-vscserver)
+* [ TF2 Object Detection API NVIDIA Devices ](https://github.com/embedded-machine-learning/hwmodule-tf2oda-nvidia)
+
 Additional Toolbox Extras:
-* [ Sample Projects](https://github.com/embedded-machine-learning/scripts-and-guides-samples): To learn and debug the toolbox, sample projects are provided.
+* [ Sample Projects](https://github.com/embedded-machine-learning/eml-tools-samples): To learn and debug the toolbox, sample projects are provided.
 
 <div align="center">
   <img src="./_img/uniform_script_execution.png", width="500">
 </div>
-
-### Supported Hardware
-At the current state, the EML toolbox supports the following network - hardware platform - hardware optimization combinations:
-- Tensorflow 2 Object Detection API SSD-MobileNet | NVIDIA Xavier | Tensorflow 2
-- Tensorflow 2 Object Detection API EfficientDet | NVIDIA Xavier | Tensorflow 2
-- Tensorflow 2 Object Detection API SSD-MobileNet | Intel NUC | OpenVino
-- Tensorflow 2 Object Detection API SSD-MobileNet | Intel NCS2 | OpenVino
-- Tensorflow 2 Object Detection API | Intel NUC | Tensorflow 2
 
 ## Guides how to use the Toolbox
 The following guides will help the user to setup and execute the EML Toolbox.
@@ -152,20 +157,7 @@ dataset for testing object detection pipelines.
 Link: [https://www.kaggle.com/alexanderwendt/oxford-pets-cleaned-for-eml-tools](https://www.kaggle.com/alexanderwendt/oxford-pets-cleaned-for-eml-tools)
 
 ### Setup Folder Structure for Inference
-On a new hardware on Linux, we setup a workspace in the following way. The following instructions were executed on an Intel NUC.
-1. Setup up a task spooler on the device to be able to execute multiple inferences in a queue.
-2. In a folder, e.g. the home folder, copy the [installation script](./training/sh/install_tf2odapi.sh) and execute it `. install_tf2odapi.sh`. 
-It will automatically create the folder structure described above, install all dependencies and test TF2 object detection api.
-3. Copy the following files to the home folder and adapt the paths in the scripts to the locations on the device
-- [init_eda_env.sh](hardwaremodules/openvino/sh/init_eda_env.sh)	#Environment setup, python environment
-- [init_eda_ts.sh](hardwaremodules/openvino/sh/init_eda_ts.sh.sh)	#Task spooler setup
-- [init_eda_ts_env.sh](hardwaremodules/openvino/sh/init_eda_ts_env.sh)	#Starts the previous scripts with one command
-4. From your project `./YOUR_PROJECT`, copy the following folder as and files to the target platform:
-- ./annotations			# Ground truth annotions for the validation images
-- ./exported-models		# Exported TF2ODA models from training. 
-- ./images/validation	#Validation images for performance measurement. Usually, a correpsonding annotionation file has to be prepared
-- [add_folder_inftf2_jobs.sh](./hardwaremodules/openvino/sh/add_folder_inftf2_jobs.sh)		#Starts the task spooler
-- [tf2_inf_eval_saved_model_TEMPLATE.sh](./hardwaremodules/openvino/sh/tf2_inf_eval_saved_model_TEMPLATE.sh)
+Go to the individual hardware repositories for detailed setup guides and setup scripts. 
 
 The complete folder structure should look like this:
 <div align="center">
@@ -180,6 +172,8 @@ If everything is setup correctly and there are exported models in `./exported-mo
 3. Add the copied and renamed script to the task spooler
 4. As the task starts, inference will be done on the model that is part of the file name.
 5. Results will be written into `./results` with a folder for each model and hardware as well as result files according to [Hardware Module Interfaces](./hardwaremodules/interfaces)
+
+For further details, go to the individual hardware repositories for detailed setup guides and setup scripts. 
 
 ## Requirements for Connected Projects
 The following requirements shall be implemented to be compatible to the EML Tool. If you are new to this topic, it is recommended to follow this process:
@@ -217,13 +211,6 @@ able to be executed without any changes of the start script.
 ### Networks
 - YoloV4
 
-
-#### Usage of the Scripts Repository
-- Create a folder for this setup.
-- Clone the scripts and guides repository into that folder, i.e. \[basefolder\]/scripts-and-guides
-- Create a folder projects i.e. \[basefolder\]/projects
-- Create your on project from the templates in scripts-and-guides in the projects folder like \[basefolder\]/projects/my_eml_project
-- Copy all necessary scripts into the my_eml_project folder and adjust the paths. 
 
 <div align="center">
   <img src="./../_img/eml_logo_and_text.png", width="500">

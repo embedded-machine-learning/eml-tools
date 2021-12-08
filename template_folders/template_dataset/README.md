@@ -15,8 +15,7 @@ The following structure is used:
 - ./annotations/xmls: Pascal VOC,  training, validation labels in ./annotations/xmls/train and ./annotations/xmls/val and a small debug set for testing the algorithms in ./annotations/xmls/debug
 - ./annotations: Coco labels 
 - ./labels: Yolo, Training labels in ./labels/train and validation labels in ./labels/val
-- ./images: Images, Training images in ./images/train, validation images in ./images/val and inference images without labels in ./images/inference and a small debug set for testing the algorithms in 
-./images/debug
+- ./images: Images, Training images in ./images/train, validation images in ./images/val
 - ./prepared-records: Tensorflow prepared records. The records shall be named train.record and val.record as a default.
 - ./scripts: Scripts Put finished scripts here
 
